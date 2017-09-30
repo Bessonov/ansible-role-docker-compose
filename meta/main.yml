@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Anton Bessonov
+  description: Install or update docker-compose
+
+  license: MIT
+
+  min_ansible_version: 1.8
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+
+  galaxy_tags:
+    - docker
+    - compose
+    - system
+    - ubuntu
+    - trusty
+    - xenial
+
+dependencies: []
