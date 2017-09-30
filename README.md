@@ -1,13 +1,13 @@
-Ansible role `Bessonov.docker-compose` for installation or update docker-compose.
+Ansible role for installation or update docker-compose
+======================================================
 
-=========
 [![Project is](https://img.shields.io/badge/Project%20is-fantastic-ff69b4.svg)](https://github.com/Bessonov/ansible-role-docker-compose)
 [![Build Status](https://travis-ci.org/Bessonov/ansible-role-docker-compose.svg?branch=master)](https://travis-ci.org/Bessonov/ansible-role-docker-compose)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](https://raw.githubusercontent.com/Bessonov/ansible-role-docker-compose/master/LICENSE.txt)
 
 
 This role:
-- Install docker-compose from docker github project
+- Install docker-compose from docker github releses
 
 Requirements
 ------------
@@ -50,8 +50,11 @@ or with parameter:
     - hosts: servers
       roles:
          - Bessonov.docker-compose
-           docker_compose_version: 1.10.0
+           # optional: desired docker compose version
+           docker_compose_version: 1.16.0
+           # optional: executable path
            docker_compose_bin: /usr/local/bin/docker-compose
+           # optional: should be installed as root
            docker_compose_as_root: yes
 
 License

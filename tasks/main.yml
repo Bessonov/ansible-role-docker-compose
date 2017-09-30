@@ -1,6 +1,20 @@
+
+- name: check installed docker compose version
+  shell: "{{ docker_compose_bin }} --version | awk -F'[ ,]' '{ print $3; }' | grep {{ docker_compose_version }}"
+  register: docker_compose_version_installed_result
+  failed_when: false
+  changed_when: false
+
+- name: store installed docker compose version result
+  set_fact:
+    docker_compose_desired_version_installed: "{{ docker_compose_version_installed_result.rc == 0 }}"
+
 - name: install docker-compose
   become: '{{ docker_compose_as_root }}'
   get_url:
     url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}'
     dest: '{{ docker_compose_bin }}'
+    force: true
     mode: '555'
+  when: docker_compose_desired_version_installed == false
+
