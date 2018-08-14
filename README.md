@@ -17,7 +17,7 @@ Requires docker. See also [ansible docker role](https://galaxy.ansible.com/Besso
 Role Variables
 --------------
 
-(optional) `docker_compose_version` specifies docker-compose version.
+(required) `docker_compose_version` specifies docker-compose version. Allow the keyword `latest` which queries docker-compose Github repo for latest release version.
 
 (optional) `docker_compose_bin` specifies installation path. Defaults to `/usr/local/bin/docker-compose`.
 
@@ -50,7 +50,7 @@ or with parameter:
     - hosts: servers
       roles:
          - Bessonov.docker-compose
-           # optional: desired docker compose version
+           # required: desired docker-compose version or 'latest'
            docker_compose_version: 1.16.0
            # optional: executable path
            docker_compose_bin: /usr/local/bin/docker-compose
