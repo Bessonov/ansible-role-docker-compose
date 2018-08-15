@@ -1,6 +1,12 @@
 
+- name: check latest docker version
+  set_fact:
+    docker_compose_latest_version: "{{ lookup('url', 'https://github.com/docker/compose/releases/latest') | regex_findall('download/([0-9]+[.][0-9]+[.][0-9]+)') | first }}"
+  when: docker_compose_version == 'latest'
+  changed_when: false
+
 - name: check installed docker compose version
-  shell: "{{ docker_compose_bin }} --version | awk -F'[ ,]' '{ print $3; }' | grep {{ docker_compose_version }}"
+  shell: "{{ docker_compose_bin }} --version | awk -F'[ ,]' '{ print $3; }' | grep {{ docker_compose_latest_version | default(docker_compose_version) }}"
   register: docker_compose_version_installed_result
   failed_when: false
   changed_when: false
@@ -12,7 +18,7 @@
 - name: install docker-compose
   become: '{{ docker_compose_as_root }}'
   get_url:
-    url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}'
+    url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_latest_version | default(docker_compose_version) }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}'
     dest: '{{ docker_compose_bin }}'
     force: true
     mode: '555'
