@@ -45,11 +45,11 @@ Playbook:
       roles:
          - Bessonov.docker-compose
 
-or with parameter:
+or with parameter (note the `role` key):
 
     - hosts: servers
       roles:
-         - Bessonov.docker-compose
+         - role: Bessonov.docker-compose
            # required: desired docker-compose version or 'latest'
            docker_compose_version: 1.16.0
            # optional: executable path
