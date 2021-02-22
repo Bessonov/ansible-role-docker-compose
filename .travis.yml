@@ -1,22 +1,28 @@
 ---
 language: python
 
+cache: pip
+
 matrix:
   include:
     - os: linux
-      dist: trusty
-      python: "2.7"
+      dist: xenial
+      python: "3.8"
       sudo: required
     - os: linux
-      dist: xenial
-      python: "2.7"
+      dist: bionic
+      python: "3.8"
+      sudo: required
+    - os: linux
+      dist: focal
+      python: "3.8"
       sudo: required
 
 # Install ansible
 addons:
   apt:
     packages:
-    - python-pip
+      - python3-pip
 
 install:
   # Install ansible
@@ -35,4 +41,9 @@ script:
   - docker-compose -f tests/docker-compose.yml up -d
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/
+    on_cancel: never
+    on_failure: never
+    on_error: never
